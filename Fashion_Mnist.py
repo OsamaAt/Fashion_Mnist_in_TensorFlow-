@@ -2,10 +2,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 import tensorflow as tf
 
+
 fmnist=tf.keras.datasets.fashion_mnist
 (training_images , train_label) , (testing_images ,test_label) = fmnist.load_data()
 
-index=5
+index=5                            #Change Me
 np.set_printoptions(linewidth=320)
 print(f'Training_images : {training_images[index]}')
 print(f'label_images : {train_label[index]}')
@@ -18,13 +19,13 @@ plt.show()
 training_images = training_images / 255.0
 testing_images = testing_images / 255.0
 
+#The Class Below To Stop Training Early (feel free to change the number)
 class myCallback(tf.keras.callbacks.Callback):
     def on_epoch_end(self,epoch,log=None):
         if log['loss'] < 0.4:
             print('\n loss is under 0.4 no cancelling training')
             self.model.stop_training=True
 
-# #Add class HERE
 
 model=tf.keras.models.Sequential([
     tf.keras.Input(shape=(28,28,1)),
